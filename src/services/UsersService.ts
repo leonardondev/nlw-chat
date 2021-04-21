@@ -4,20 +4,25 @@ import { UsersRepository } from "../repositories/UsersRepository";
 
 
 class UsersService {
-  async create(email: string) {
-    const usersRepository = getCustomRepository(UsersRepository);
 
-    const userExixts = await usersRepository.findOne({email});
+  private usersRepository: UsersRepository;
+
+  constructor() {
+    this.usersRepository = getCustomRepository(UsersRepository);
+  }
+
+  async create(email: string) {
+    const userExixts = await this.usersRepository.findOne({email});
 
     if (userExixts) {
       return userExixts;
     }
 
-    const user = usersRepository.create({
+    const user = this.usersRepository.create({
       email,
     })
 
-    await usersRepository.save(user)
+    await this.usersRepository.save(user)
 
     return user;
   }
