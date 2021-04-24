@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-
+import { Connection } from "../entities/Connection";
 import { ConnectionsRepository } from "../repositories/ConnectionsRepository";
 
 interface IConnectionCreate {
@@ -51,6 +51,13 @@ class ConnectionsService {
   }
 
 
+  async updateAdminID(user_id: string, admin_id: string) {
+    this.connectionsRepository.createQueryBuilder()
+      .update(Connection)
+      .set({admin_id})
+      .where("user_id = :user_id", {user_id})
+      .execute();
+  }
 }
 
 export { ConnectionsService }

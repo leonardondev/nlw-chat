@@ -66,10 +66,10 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
 });
 
 document.querySelector("#send_message_button").addEventListener("click", (event) => {
-  const text = document.getElementById("message_user").value;
+  const text = document.getElementById("message_user");
 
   const params = {
-    text,
+    text: text.value,
     socket_admin_id
   }
 
@@ -78,10 +78,11 @@ document.querySelector("#send_message_button").addEventListener("click", (event)
   const template_client = document.getElementById("message-user-template").innerHTML;
 
   const rendered = Mustache.render(template_client, {
-    message: text,
+    message: text.value,
     email: emailUser,
   })
 
   document.getElementById("messages").innerHTML += rendered;
 
+  text.value = "";
 })
