@@ -15,9 +15,14 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.set("views", path.join(__dirname, "..", "public"));
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
+
 app.get("/pages/client", (request, response) => {
   return response.render("html/client.html");
 })
+app.get("/pages/admin", (request, response) => {
+  return response.render("html/admin.html");
+})
+
 io.on("connection", (socket: Socket) => {
   console.log("Se conectou", socket.id);
 })
